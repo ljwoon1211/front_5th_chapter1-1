@@ -69,6 +69,7 @@ describe("심화과제 테스트", () => {
       goTo("/");
 
       const firstTarget = document.querySelector('nav a[href="/login"]');
+      console.log(firstTarget);
 
       firstTarget.addEventListener("click", (e) => {
         e.stopPropagation();
