@@ -1,6 +1,6 @@
 import Layout from "./components/layout/Layout";
 import Nav from "./components/layout/Nav";
-import Error from "./pages/Error";
+import createError from "./pages/Error";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
 import Profile from "./pages/Profile";
@@ -44,7 +44,7 @@ const App = () => {
     });
     router.addRoute(
       "/error",
-      () => (document.getElementById("root").innerHTML = Error()),
+      () => (document.getElementById("root").innerHTML = createError().html),
     );
 
     /**

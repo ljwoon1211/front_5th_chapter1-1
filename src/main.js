@@ -1,12 +1,13 @@
 import Layout from "./components/layout/Layout";
-import Nav from "./components/layout/Nav";
-import Error from "./pages/Error";
-import Login from "./pages/Login";
-import Main from "./pages/Main";
-import Profile from "./pages/Profile";
-import createRouter from "./routes/createRouter";
+import createMain from "./pages/Main";
 
-const App = () => {
+import createRouter from "./routes/createRouter";
+import createProfile from "./pages/Profile";
+import createLogin from "./pages/Login";
+import createNav from "./components/layout/Nav";
+import createError from "./pages/Error";
+
+const createApp = () => {
   const router = createRouter({ type: "browser" });
 
   // 렌더링 함수
@@ -22,7 +23,7 @@ const App = () => {
     });
 
     // 네비게이션 초기화
-    Nav(router).mount();
+    createNav(router).mount();
 
     // 페이지 컴포넌트에 있는 이벤트 핸들러 설정
     if (pageComponent.mount) {
@@ -35,16 +36,16 @@ const App = () => {
    */
   const init = () => {
     // 라우트 등록
-    router.addRoute("/", () => renderPage(Main()));
-    router.addRoute("/profile", () => renderPage(Profile(router)));
+    router.addRoute("/", () => renderPage(createMain()));
+    router.addRoute("/profile", () => renderPage(createProfile(router)));
     router.addRoute("/login", () => {
-      const loginComponent = Login(router);
+      const loginComponent = createLogin(router);
       document.getElementById("root").innerHTML = loginComponent.html;
       loginComponent.mount();
     });
     router.addRoute(
       "/error",
-      () => (document.getElementById("root").innerHTML = Error()),
+      () => (document.getElementById("root").innerHTML = createError().html),
     );
 
     /**
@@ -65,5 +66,5 @@ const App = () => {
     init,
   };
 };
-const app = App();
+const app = createApp();
 app.init();

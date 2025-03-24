@@ -1,16 +1,16 @@
-import Footer from "./Footer";
-import Header from "./Header";
-import Nav from "./Nav";
+import createFooter from "./Footer";
+import createNav from "./Nav";
+import createHeader from "./Header";
 
-const Layout = ({ content, router }) => `
+const createLayout = ({ content, router }) => `
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full ">
-      ${Header()}
-      ${Nav(router).html}
+      ${createHeader().html}
+      ${createNav(router).html}
       ${content.html}
-      ${Footer()}
+      ${createFooter().html}
     </div>
   </div>
 `;
 
-export default Layout;
+export default createLayout;

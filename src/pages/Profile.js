@@ -1,6 +1,6 @@
 import authService from "../services/authService";
 
-const Profile = () => {
+const createProfile = () => {
   const userData = authService.getUser() || {
     username: "홍길동",
     email: "hong@example.com",
@@ -56,7 +56,7 @@ const Profile = () => {
                 >${userData.bio} ${userData.bio}</textarea>
               </div>
               <button
-                type="submit"S
+                type="submit"
                 class="w-full bg-blue-600 text-white p-2 rounded font-bold"
               >
                 프로필 업데이트
@@ -89,4 +89,4 @@ const Profile = () => {
   };
 };
 
-export default Profile;
+export default createProfile;

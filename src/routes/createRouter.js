@@ -9,7 +9,6 @@ import createHashRouter from "./createHashRouter.js";
  */
 const createRouter = (options = {}) => {
   const { type = "browser" } = options;
-  console.log(type);
   // 라우터 타입에 따라 적절한 구현체 반환
   if (type === "hash") {
     return createHashRouter();

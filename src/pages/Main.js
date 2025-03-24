@@ -1,4 +1,4 @@
-const Main = () => {
+const createMain = () => {
   const html = `
     <main class="p-4">
       <div class="mb-4 bg-white rounded-lg shadow p-4">
@@ -61,4 +61,4 @@ const Main = () => {
   return { html };
 };
 
-export default Main;
+export default createMain;

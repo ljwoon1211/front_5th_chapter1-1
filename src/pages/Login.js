@@ -1,6 +1,6 @@
 import authService from "../services/authService";
 
-const Login = (router) => {
+const createLogin = (router) => {
   // HTML 템플릿 반환
   const html = `
     <main class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -52,4 +52,4 @@ const Login = (router) => {
   };
 };
 
-export default Login;
+export default createLogin;

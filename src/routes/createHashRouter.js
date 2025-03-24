@@ -20,15 +20,6 @@ const createHashRouter = () => {
    * 현재 경로 가져오기 (해시에서 경로 추출)
    */
   const getCurrentPath = () => {
-    // URL이 '/index.hash.html#/profile'과 같은 형식인 경우
-    // '#/' 이후의 문자열을 추출하여 경로로 사용 (예: '/profile')
-    // const hash = window.location.hash;
-    // console.log("hash", hash);
-    // // #/index.hash.html#/profile 형식에서 두 번째 #/ 이후 경로 추출
-    // if (hash.includes("/index.hash.html#/")) {
-    //   return hash.split("/index.hash.html#/")[1];
-    // }
-
     // // 일반적인 #/ 형식 처리
     // return hash.replace(/^#\/?/, "/") || "/";
     return window.location.hash.replace(/^#/, "") || "/";
