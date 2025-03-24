@@ -1,6 +1,6 @@
 import authService from "../services/authService";
 
-const createLogin = (router) => {
+const Login = (router) => {
   // HTML 템플릿 반환
   const html = `
     <main class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -31,25 +31,24 @@ const createLogin = (router) => {
     mount: () => {
       // 이벤트 핸들러 설정
       const loginForm = document.getElementById("login-form");
-      if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const username = document.getElementById("username").value;
+      if (!loginForm) return;
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("username").value;
 
-          if (username.trim() === "") {
-            alert("사용자 이름을 입력해주세요.");
-            return;
-          }
+        if (username.trim() === "") {
+          alert("사용자 이름을 입력해주세요.");
+          return;
+        }
 
-          // 로그인 처리
-          authService.login(username, "", "");
+        // 로그인 처리
+        authService.login(username, "", "");
 
-          // 홈 페이지로 리다이렉트
-          router.navigateTo("/");
-        });
-      }
+        // 홈 페이지로 리다이렉트
+        router.navigateTo("/");
+      });
     },
   };
 };
 
-export default createLogin;
+export default Login;

@@ -1,4 +1,4 @@
-import Layout from "./components/layout/Layout";
+import createLayout from "./components/layout/Layout";
 import createMain from "./pages/Main";
 
 import createRouter from "./routes/createRouter";
@@ -17,7 +17,7 @@ const createApp = () => {
    */
   const renderPage = (pageComponent) => {
     // 페이지 콘텐츠 렌더링
-    document.getElementById("root").innerHTML = Layout({
+    document.getElementById("root").innerHTML = createLayout({
       content: pageComponent,
       router,
     });

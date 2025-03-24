@@ -5,11 +5,8 @@ import authService from "../services/authService.js";
  * 브라우저 히스토리 API 기반 라우터 생성
  * @returns {Object} 브라우저 라우터 인스턴스
  */
-const createBrowserRouter = (options = {}) => {
-  const basename =
-    options.basename !== undefined
-      ? options.basename
-      : import.meta.env.VITE_BASE_PATH || "";
+const createBrowserRouter = () => {
+  const basename = import.meta.env.VITE_BASE_PATH || "";
   // 라우트 저장 객체
   const routes = {};
 

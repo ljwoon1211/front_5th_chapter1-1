@@ -30,40 +30,34 @@ const createNav = (router) => {
     html,
     mount: () => {
       const navElement = document.getElementById("main-nav");
-      if (navElement) {
-        navElement.addEventListener("click", (e) => {
-          // 클릭된 요소나 그 부모가 a 태그인지 확인
-          const linkElement = e.target.closest("a");
+      if (!navElement) return;
 
-          // a 태그가 아니거나 이벤트가 이미 처리되었으면 무시
-          if (!linkElement || e.defaultPrevented) {
-            return;
-          }
+      navElement.addEventListener("click", (e) => {
+        // 클릭된 요소나 그 부모가 a 태그인지 확인
+        const linkElement = e.target.closest("a");
+        if (!linkElement || e.defaultPrevented) return;
 
-          // 로그아웃 버튼 클릭 처리
-          if (linkElement.id === "logout") {
-            e.preventDefault();
+        e.preventDefault(); // 모든 링크 클릭에 대해 기본 동작 방지
+
+        // ID에 따른 동작 처리
+        const linkId = linkElement.id;
+        switch (linkId) {
+          case "logout":
             authService.logout(router);
-            return;
-          }
-
-          // 로그인 링크 클릭 처리
-          if (linkElement.id === "login") {
-            e.preventDefault();
+            break;
+          case "login":
             router.navigateTo("/login");
-            return;
+            break;
+          default: {
+            // 내부 링크인 경우 라우팅 처리
+            const href = linkElement.getAttribute("href");
+            if (href && href.startsWith("/")) {
+              router.navigateTo(href);
+            }
+            break;
           }
-
-          // 다른 내비게이션 링크 처리
-          if (
-            linkElement.getAttribute("href") &&
-            linkElement.getAttribute("href").startsWith("/")
-          ) {
-            e.preventDefault();
-            router.navigateTo(linkElement.getAttribute("href"));
-          }
-        });
-      }
+        }
+      });
     },
   };
 };
