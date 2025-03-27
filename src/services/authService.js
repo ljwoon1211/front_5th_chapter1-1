@@ -40,9 +40,8 @@ const createAuthService = () => {
    */
   const logout = (router) => {
     userActions.logout();
-
     if (router && router.navigateTo) {
-      // router.navigateTo("/");
+      router.navigateTo("/login");
     }
   };
 

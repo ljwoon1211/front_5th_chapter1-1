@@ -1,6 +1,6 @@
 import authService from "../../services/authService";
-import { userStore } from "../../store/userStore";
-import { renderComponent } from "../../utils/renderUtils";
+// import { userStore } from "../../store/userStore";
+// import { renderComponent } from "../../utils/renderUtils";
 
 const createNav = (router) => {
   const renderNav = () => {
@@ -76,13 +76,13 @@ const createNav = (router) => {
     setupEventListeners();
 
     // 상태 변경 구독 - 로그인/로그아웃 시 내비게이션 업데이트
-    const unsubscribe = userStore.subscribe((newState, prevState) => {
-      if (newState.loggedIn !== prevState.loggedIn) {
-        renderComponent(renderNav, "main-nav");
-      }
-    });
+    // const unsubscribe = userStore.subscribe((newState, prevState) => {
+    //   if (newState.loggedIn !== prevState.loggedIn) {
+    //     renderComponent(renderNav, "main-nav");
+    //   }
+    // });
 
-    return unsubscribe;
+    // return unsubscribe;
   };
 
   return {
