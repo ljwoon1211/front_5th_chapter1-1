@@ -7,6 +7,7 @@ import authService from "../services/authService.js";
  */
 const createBrowserRouter = () => {
   const basename = import.meta.env.VITE_BASE_PATH || "";
+
   // 라우트 저장 객체
   const routes = {};
 
@@ -16,7 +17,8 @@ const createBrowserRouter = () => {
    * @param {Function} handler - 해당 경로 처리 함수
    */
   const addRoute = (path, handler) => {
-    routes[path] = handler;
+    const fullPath = basename + `${path}`;
+    routes[fullPath] = handler;
   };
 
   /**
@@ -30,7 +32,7 @@ const createBrowserRouter = () => {
    * 다른 경로로 이동
    */
   const navigateTo = (path) => {
-    const fullPath = basename + (path.startsWith("/") ? path : `/${path}`);
+    const fullPath = basename + `${path}`;
     history.pushState(null, "", fullPath);
     handleRoute();
   };
