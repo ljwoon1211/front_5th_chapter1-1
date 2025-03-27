@@ -2,14 +2,15 @@ import authService from "../services/authService";
 import { userStore } from "../store/userStore";
 
 const createProfile = () => {
-  const { username, email, bio } = authService.getUser() || {
-    username: "홍길동",
-    email: "hong@example.com",
-    bio: "안녕하세요, 항해플러스에서 열심히 공부하고 있는 홍길동입니다.",
-  };
   const render = () => {
+    const { username, email, bio } = authService.getUser() || {
+      username: "홍길동",
+      email: "hong@example.com",
+      bio: "안녕하세요, 항해플러스에서 열심히 공부하고 있는 홍길동입니다.",
+    };
+
     const html = `
-          <main class="p-4">
+          <main class="p-4" id="profile-container">
             <div class="bg-white p-8 rounded-lg shadow-md">
               <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
                 내 프로필
@@ -95,15 +96,23 @@ const createProfile = () => {
     const unsubscribe = userStore.subscribe((newState) => {
       // 프로필 폼 필드 업데이트
       if (newState.currentUser) {
-        const { username, email, bio } = newState.currentUser;
+        const container = document.getElementById("profile-container");
+        container.outerHTML = render().html;
 
-        const usernameInput = document.getElementById("username");
-        const emailInput = document.getElementById("email");
-        const bioTextarea = document.getElementById("bio");
+        // 이벤트 리스너 다시 연결
+        const newProfileForm = document.getElementById("profile-form");
+        if (newProfileForm) {
+          newProfileForm.addEventListener("submit", (e) => {
+            e.preventDefault();
 
-        if (usernameInput) usernameInput.value = username || "";
-        if (emailInput) emailInput.value = email || "";
-        if (bioTextarea) bioTextarea.value = bio || "";
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const bio = document.getElementById("bio").value;
+
+            authService.updateProfile(username, email, bio);
+            alert("프로필이 업데이트되었습니다.");
+          });
+        }
       }
     });
 
