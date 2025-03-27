@@ -1,3 +1,5 @@
+import { userStore, userActions } from "../store/userStore.js";
+
 /**
  * 사용자 인증 관련 기능을 제공하는 서비스
  * - 로그인, 로그아웃, 사용자 정보 관리
@@ -8,8 +10,8 @@ const createAuthService = () => {
    * @returns {Object|null} 사용자 정보 또는 null
    */
   const getUser = () => {
-    const userData = localStorage.getItem("user");
-    return userData ? JSON.parse(userData) : null;
+    const { currentUser } = userStore.getState();
+    return currentUser;
   };
 
   /**
@@ -17,7 +19,8 @@ const createAuthService = () => {
    * @returns {boolean} 로그인 여부
    */
   const loggedIn = () => {
-    return localStorage.getItem("user") !== null;
+    const { isLoggedIn } = userStore.getState();
+    return isLoggedIn;
   };
 
   /**
@@ -28,9 +31,7 @@ const createAuthService = () => {
    * @returns {Object} 사용자 정보
    */
   const login = (username, email = "", bio = "") => {
-    const userData = { username, email, bio };
-    localStorage.setItem("user", JSON.stringify(userData));
-    return userData;
+    return userActions.login(username, email, bio);
   };
 
   /**
@@ -38,7 +39,8 @@ const createAuthService = () => {
    * @param {Object} router - 라우터 객체
    */
   const logout = (router) => {
-    localStorage.removeItem("user");
+    userActions.logout();
+
     if (router && router.navigateTo) {
       router.navigateTo("/login");
     }
@@ -52,10 +54,7 @@ const createAuthService = () => {
    * @returns {Object} 업데이트된 사용자 정보
    */
   const updateProfile = (username, email, bio) => {
-    const userData = getUser();
-    const updatedUserData = { ...userData, username, email, bio };
-    localStorage.setItem("user", JSON.stringify(updatedUserData));
-    return updatedUserData;
+    return userActions.updateProfile(username, email, bio);
   };
 
   return {
@@ -66,5 +65,6 @@ const createAuthService = () => {
     updateProfile,
   };
 };
+
 const authService = createAuthService();
 export default authService;

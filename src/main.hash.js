@@ -1,4 +1,4 @@
-import Layout from "./components/layout/Layout";
+import createLayout from "./components/layout/Layout";
 import Nav from "./components/layout/Nav";
 import createError from "./pages/Error";
 import Login from "./pages/Login";
@@ -6,7 +6,7 @@ import Main from "./pages/Main";
 import Profile from "./pages/Profile";
 import createRouter from "./routes/createRouter";
 
-const App = () => {
+const createApp = () => {
   const router = createRouter({ type: "hash" });
 
   // 렌더링 함수
@@ -16,7 +16,7 @@ const App = () => {
    */
   const renderPage = (pageComponent) => {
     // 페이지 콘텐츠 렌더링
-    document.getElementById("root").innerHTML = Layout({
+    document.getElementById("root").innerHTML = createLayout({
       content: pageComponent,
       router,
     });
@@ -65,5 +65,5 @@ const App = () => {
     init,
   };
 };
-const app = App();
+const app = createApp();
 app.init();

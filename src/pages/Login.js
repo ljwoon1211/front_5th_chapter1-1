@@ -1,4 +1,4 @@
-import authService from "../services/authService";
+import { userActions } from "../store/userStore";
 
 const Login = (router) => {
   // HTML 템플릿 반환
@@ -42,7 +42,7 @@ const Login = (router) => {
         }
 
         // 로그인 처리
-        authService.login(username, "", "");
+        userActions.login(username);
 
         // 홈 페이지로 리다이렉트
         router.navigateTo("/");
