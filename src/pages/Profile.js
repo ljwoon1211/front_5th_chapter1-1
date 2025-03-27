@@ -1,5 +1,6 @@
 import authService from "../services/authService";
 import { userStore } from "../store/userStore";
+import { renderComponent } from "../utils/renderUtils";
 
 const createProfile = () => {
   const render = () => {
@@ -73,8 +74,8 @@ const createProfile = () => {
     };
   };
 
-  const mount = () => {
-    // 프로필 업데이트 이벤트 핸들러
+  // 이벤트 리스너 설정 함수
+  const setupEventListeners = () => {
     const profileForm = document.getElementById("profile-form");
 
     if (profileForm) {
@@ -91,28 +92,16 @@ const createProfile = () => {
         alert("프로필이 업데이트되었습니다.");
       });
     }
+  };
+
+  const mount = () => {
+    setupEventListeners();
 
     // 상태 변경 구독
     const unsubscribe = userStore.subscribe((newState) => {
       // 프로필 폼 필드 업데이트
       if (newState.currentUser) {
-        const container = document.getElementById("profile-container");
-        container.outerHTML = render().html;
-
-        // 이벤트 리스너 다시 연결
-        const newProfileForm = document.getElementById("profile-form");
-        if (newProfileForm) {
-          newProfileForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-            const bio = document.getElementById("bio").value;
-
-            authService.updateProfile(username, email, bio);
-            alert("프로필이 업데이트되었습니다.");
-          });
-        }
+        renderComponent(render, "profile-container");
       }
     });
 

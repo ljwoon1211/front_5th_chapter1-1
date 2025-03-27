@@ -8,7 +8,7 @@ export const renderComponent = (
   if (!container) return;
 
   const component = componentFactory();
-  container.innerHTML = component.html;
+  container.outerHTML = component.html;
 
   // shouldMount 파라미터가 true일 때만 mount 호출
   if (shouldMount && component.mount) {

@@ -21,8 +21,9 @@ const createStore = (initialState = {}) => {
    * @param {Object} newState - 새로운 상태 값 (부분 업데이트 가능)
    */
   const setState = (newState) => {
+    const prevState = { ...state };
     state = { ...state, ...newState };
-    listeners.forEach((listener) => listener(state));
+    listeners.forEach((listener) => listener(state, prevState));
     return state;
   };
 

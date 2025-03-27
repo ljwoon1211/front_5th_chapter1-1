@@ -3,7 +3,7 @@ import createStore from "./createStore.js";
 // 초기 상태 정의
 const initialState = {
   currentUser: null,
-  isLoggedIn: false,
+  loggedIn: false,
 };
 
 const userStore = createStore(initialState);
@@ -13,7 +13,7 @@ const initUserStore = () => {
   const userData = localStorage.getItem("user");
   if (userData) {
     const user = JSON.parse(userData);
-    userStore.setState({ currentUser: user, isLoggedIn: true });
+    userStore.setState({ currentUser: user, loggedIn: true });
   }
 };
 
@@ -23,14 +23,14 @@ const userActions = {
   login: (username, email = "", bio = "") => {
     const userData = { username, email, bio };
     localStorage.setItem("user", JSON.stringify(userData));
-    userStore.setState({ currentUser: userData, isLoggedIn: true });
+    userStore.setState({ currentUser: userData, loggedIn: true });
     return userData;
   },
 
   // 로그아웃
   logout: () => {
     localStorage.removeItem("user");
-    userStore.setState({ currentUser: null, isLoggedIn: false });
+    userStore.setState({ currentUser: null, loggedIn: false });
   },
 
   // 프로필 업데이트

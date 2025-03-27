@@ -1,5 +1,5 @@
 import createLayout from "./components/layout/Layout";
-import Nav from "./components/layout/Nav";
+import createNav from "./components/layout/Nav";
 import createError from "./pages/Error";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
@@ -21,8 +21,9 @@ const createApp = () => {
       router,
     });
 
-    // 네비게이션 초기화
-    Nav(router).mount();
+    // 네비게이션 초기화 - createNav에서 이미 HTML을 구성했으므로 여기서는 mount만 수행
+    const nav = createNav(router);
+    nav.mount();
 
     // 페이지 컴포넌트에 있는 이벤트 핸들러 설정
     if (pageComponent.mount) {

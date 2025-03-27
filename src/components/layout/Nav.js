@@ -1,5 +1,6 @@
 import authService from "../../services/authService";
 import { userStore } from "../../store/userStore";
+import { renderComponent } from "../../utils/renderUtils";
 
 const createNav = (router) => {
   const renderNav = () => {
@@ -29,7 +30,7 @@ const createNav = (router) => {
       </nav>
     `;
 
-    return html;
+    return { html };
   };
 
   // 이벤트 리스너 설정 함수
@@ -75,13 +76,9 @@ const createNav = (router) => {
     setupEventListeners();
 
     // 상태 변경 구독 - 로그인/로그아웃 시 내비게이션 업데이트
-    const unsubscribe = userStore.subscribe(() => {
-      const newNavHtml = renderNav();
-      const navElement = document.getElementById("main-nav");
-      if (navElement) {
-        navElement.outerHTML = newNavHtml;
-        // 새로 렌더링된 네비게이션에 이벤트 리스너 다시 연결
-        setupEventListeners();
+    const unsubscribe = userStore.subscribe((newState, prevState) => {
+      if (newState.loggedIn !== prevState.loggedIn) {
+        renderComponent(renderNav, "main-nav");
       }
     });
 
@@ -89,7 +86,7 @@ const createNav = (router) => {
   };
 
   return {
-    html: renderNav(),
+    ...renderNav(),
     mount: mount,
   };
 };

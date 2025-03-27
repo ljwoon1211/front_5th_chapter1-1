@@ -19,8 +19,8 @@ const createAuthService = () => {
    * @returns {boolean} 로그인 여부
    */
   const loggedIn = () => {
-    const { isLoggedIn } = userStore.getState();
-    return isLoggedIn;
+    const { loggedIn } = userStore.getState();
+    return loggedIn;
   };
 
   /**
@@ -42,7 +42,7 @@ const createAuthService = () => {
     userActions.logout();
 
     if (router && router.navigateTo) {
-      router.navigateTo("/login");
+      // router.navigateTo("/");
     }
   };
 
